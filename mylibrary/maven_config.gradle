@@ -1,0 +1,47 @@
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('F://repo'))
+            android.libraryVariants.all {variant->
+                def isFlavor = !variant.flavorName.isEmpty()
+                def _flavorBuildTypeName = "${variant.name}"
+
+                addFilter(_flavorBuildTypeName){artifact, file->
+                    (artifact.attributes.classifier == _flavorBuildTypeName)
+                }
+                pom(_flavorBuildTypeName).artifactId = project.archivesBaseName + "-" + _flavorBuildTypeName
+                pom(_flavorBuildTypeName).version = "1.0.0"
+                pom(_flavorBuildTypeName).groupId = "com.multi.maven"
+                pom(_flavorBuildTypeName).name = "testName"
+                pom(_flavorBuildTypeName).packaging = 'aar'
+
+                pom(_flavorBuildTypeName).withXml{
+                    def root = asNode()
+                    def depsNode = root["dependencies"][0] ?: root.appendNode("dependencies")
+                    def addDep = {
+                        if (it.group == null) return // Avoid empty dependency nodes
+                        def dependencyNode = depsNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        if (it.hasProperty('optional') && it.optional) {
+                            dependencyNode.appendNode('optional', 'true')
+                        }
+                    }
+                    // Add deps that everyone has
+                    configurations.compile.allDependencies.each addDep
+                    // Add flavor specific deps
+                    if (isFlavor) {
+                        println(configurations["${_flavorBuildTypeName}Implementation"].allDependencies.each)
+                        configurations["${_flavorBuildTypeName}Implementation"].allDependencies.each addDep
+                        def flavorName = variant.flavorName
+                        configurations["${flavorName}Implementation"].allDependencies.each addDep
+                    }
+                    // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
+                }
+
+            }
+        }
+    }
+}
