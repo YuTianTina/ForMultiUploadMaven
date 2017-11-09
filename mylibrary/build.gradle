@@ -31,13 +31,6 @@ android {
 
 }
 
-configurations{
-    fullDebugImplementation
-    fullReleaseImplementation
-    simpleDebugImplementation
-    simpleReleaseImplementation
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
