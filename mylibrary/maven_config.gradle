@@ -8,10 +8,10 @@ uploadArchives {
                 def _flavorBuildTypeName = "${variant.name}"
 
                 addFilter(_flavorBuildTypeName){artifact, file->
-                    (artifact.attributes.classifier == _flavorBuildTypeName)
+                    true
                 }
                 pom(_flavorBuildTypeName).artifactId = project.archivesBaseName + "-" + _flavorBuildTypeName
-                pom(_flavorBuildTypeName).version = "1.0.0"
+                pom(_flavorBuildTypeName).version = "1.0.2"
                 pom(_flavorBuildTypeName).groupId = "com.multi.maven"
                 pom(_flavorBuildTypeName).name = "testName"
                 pom(_flavorBuildTypeName).packaging = 'aar'
@@ -30,13 +30,15 @@ uploadArchives {
                         }
                     }
                     // Add deps that everyone has
-                    configurations.compile.allDependencies.each addDep
+                    configurations.api.allDependencies.each addDep
+                    configurations.implementation.allDependencies.each addDep
                     // Add flavor specific deps
                     if (isFlavor) {
-                        println(configurations["${_flavorBuildTypeName}Implementation"].allDependencies.each)
                         configurations["${_flavorBuildTypeName}Implementation"].allDependencies.each addDep
                         def flavorName = variant.flavorName
                         configurations["${flavorName}Implementation"].allDependencies.each addDep
+                        configurations["${_flavorBuildTypeName}Api"].allDependencies.each addDep
+                        configurations["${flavorName}Api"].allDependencies.each addDep
                     }
                     // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
                 }

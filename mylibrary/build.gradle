@@ -2,8 +2,6 @@ apply plugin: 'com.android.library'
 apply from : "maven_config.gradle"
 android {
     compileSdkVersion 26
-
-    publishNonDefault true
     defaultPublishConfig 'fullRelease'
 
     defaultConfig {
