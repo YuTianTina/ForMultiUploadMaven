@@ -106,7 +106,7 @@ mavenDeployer {
 
 ## 依赖对应的组件库
 在成功发布后, 我们仓库内容应该如下图
-[pic][3]
+![image.png](https://github.com/YuTianTina/ForMultiUploadMaven/blob/master/demopic.png)
 假设我们的flavor分别为full和simple,当我们去依赖的时候, 就可以通过
 ```
 releaseImplementation "com.maven.test:libraryNameFullRelease:1.0.0"
@@ -115,4 +115,3 @@ debugImplementation "com.maven.test:libraryNameFullDebug:1.0.0"
 [0]:https://docs.gradle.org/current/javadoc/org/gradle/api/artifacts/maven/MavenDeployer.html
 [1]:https://docs.gradle.org/current/javadoc/org/gradle/api/artifacts/maven/MavenPom.html
 [2]:https://github.com/YuTianTina/ForMultiUploadMaven
-[3]:https://github.com/YuTianTina/ForMultiUploadMaven/blob/master/demopic.png
