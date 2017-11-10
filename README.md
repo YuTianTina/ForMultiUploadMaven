@@ -106,7 +106,7 @@ mavenDeployer {
 
 ## 依赖对应的组件库
 在成功发布后, 我们仓库内容应该如下图
-![image.png](demopic.png)
+![image.png](assets/demopic.png)
 假设我们的flavor分别为full和simple,当我们去依赖的时候, 就可以通过
 ```
 releaseImplementation "com.maven.test:libraryNameFullRelease:1.0.0"
