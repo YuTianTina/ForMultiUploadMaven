@@ -40,7 +40,6 @@ uploadArchives {
                         configurations["${_flavorBuildTypeName}Api"].allDependencies.each addDep
                         configurations["${flavorName}Api"].allDependencies.each addDep
                     }
-                    // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
                 }
 
             }
