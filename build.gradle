@@ -9,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'digital.wup:android-maven-publish:3.6.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,6 +22,7 @@ allprojects {
         maven{
             url uri(project.rootDir.absolutePath + "/Repo/")
         }
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
 }
 
