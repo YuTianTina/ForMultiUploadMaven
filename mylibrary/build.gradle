@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-//apply from : "maven_config.gradle"
-apply from: 'maven_variant_config.gradle'
+apply from : "maven_config.gradle"
+//apply from: 'maven_variant_config.gradle'
 android {
     compileSdkVersion 26
     defaultPublishConfig 'fullRelease'

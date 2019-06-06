@@ -8,8 +8,8 @@
  * 3. Provide PRIVATE_REPOSITORY_USERNAME and PRIVATE_REPOSITORY_PASSWORD if needed.
  */
 apply plugin: 'maven-publish'
-apply plugin: 'digital.wup.android-maven-publish'
 apply plugin: 'signing'
+apply plugin: 'digital.wup.android-maven-publish'
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
