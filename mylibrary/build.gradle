@@ -1,6 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'digital.wup:android-maven-publish:3.6.2'
+        classpath 'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18'
+    }
+}
 apply plugin: 'com.android.library'
-apply from : "maven_config.gradle"
-//apply from: 'maven_variant_config.gradle'
+//apply from : "maven_config.gradle"
+apply from: 'maven_variant_config.gradle'
 android {
     compileSdkVersion 26
     defaultPublishConfig 'fullRelease'

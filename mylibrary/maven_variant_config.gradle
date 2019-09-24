@@ -10,6 +10,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'digital.wup.android-maven-publish'
+apply from: 'dokka.gradle'
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
@@ -65,7 +66,7 @@ android.libraryVariants.all { variant ->
      * Includes
      */
     def sourceDirs = variant.sourceSets.collect {
-        it.javaDirectories // TODO: kotlin sources
+        it.javaDirectories
     }
     def javadoc = task("${variant.name}Javadoc", type: Javadoc) {
         if(variant.hasProperty('javaCompileProvider')){
@@ -83,10 +84,7 @@ android.libraryVariants.all { variant ->
         exclude '**/R.java'
         failOnError false
     }
-    def javadocJar = task("${variant.name}JavadocJar", type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
+    def javadocJar = dokkaJar
     def sourcesJar = task("${variant.name}SourcesJar", type: Jar) {
         classifier = 'sources'
         from sourceDirs
@@ -131,6 +129,7 @@ android.libraryVariants.all { variant ->
             from components.findByName("android${variant.name.capitalize()}")
 
             artifact javadocJar
+            artifact sourcesJar
             artifact jniSymbolsJar
         }
     }
